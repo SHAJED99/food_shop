@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "788264178175",
+    "project_id": "food-panddu",
+    "storage_bucket": "food-panddu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788264178175:android:dee9c839746764c6d6d7ca",
+        "android_client_info": {
+          "package_name": "com.example.food_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788264178175-lpf2posvr3q3ijg761nh0gv5bmiorn3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-VXFxsLBZNpqw16wpgKjMvp4sr4ZaDSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788264178175-lpf2posvr3q3ijg761nh0gv5bmiorn3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
