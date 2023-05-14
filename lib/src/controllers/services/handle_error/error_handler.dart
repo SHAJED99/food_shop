@@ -20,7 +20,7 @@ class ErrorHandler {
         if (kDebugMode) print("ErrorHandler: UserAlreadyExistsException");
         if (showError) UserAlreadyExistsException();
       } else if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-        if (kDebugMode) print("ErrorHandler: UserAlreadyExistsException");
+        if (kDebugMode) print("ErrorHandler: Invalid user");
         if (showError) UserNotFoundException();
       } else {
         if (kDebugMode) print("ErrorHandler: InternalError. ErrorCode: ${e.code}");

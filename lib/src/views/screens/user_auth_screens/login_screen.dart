@@ -3,8 +3,8 @@ import 'package:food_shop/src/controllers/data_controllers/data_controller.dart'
 import 'package:food_shop/src/controllers/services/functions/email_verification.dart';
 import 'package:food_shop/src/controllers/services/functions/password_verification.dart';
 import 'package:food_shop/src/models/app_models/app_constants.dart';
-import 'package:food_shop/src/views/screens/user_auth_screen/reset_password_screen.dart';
-import 'package:food_shop/src/views/screens/user_auth_screen/signup_screen.dart';
+import 'package:food_shop/src/views/screens/user_auth_screens/reset_password_screen.dart';
+import 'package:food_shop/src/views/screens/user_auth_screens/signup_screen.dart';
 import 'package:food_shop/src/views/widgets/custom_background_image.dart';
 import 'package:food_shop/src/views/widgets/custom_elevated_button_widget.dart';
 import 'package:food_shop/src/views/widgets/custom_page_title.dart';

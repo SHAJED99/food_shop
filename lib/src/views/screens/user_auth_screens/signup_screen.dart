@@ -3,8 +3,9 @@ import 'package:food_shop/src/controllers/data_controllers/data_controller.dart'
 import 'package:food_shop/src/controllers/services/functions/email_verification.dart';
 import 'package:food_shop/src/controllers/services/functions/password_verification.dart';
 import 'package:food_shop/src/models/app_models/app_constants.dart';
-import 'package:food_shop/src/models/pojo_models/user_information.dart';
-import 'package:food_shop/src/views/screens/user_auth_screen/login_screen.dart';
+import 'package:food_shop/src/models/pojo_models/user_information_model.dart';
+import 'package:food_shop/src/views/screens/main_screens/wrapped_screens/customer_wrapped_screens/cusetomer_wrapped_screen.dart';
+import 'package:food_shop/src/views/screens/user_auth_screens/login_screen.dart';
 import 'package:food_shop/src/views/widgets/custom_background_image.dart';
 import 'package:food_shop/src/views/widgets/custom_elevated_button_widget.dart';
 import 'package:food_shop/src/views/widgets/custom_page_title.dart';
@@ -102,11 +103,11 @@ class SignupScreen extends StatelessWidget {
                         onTap: () async {
                           bool res = _form.currentState?.validate() ?? false;
                           if (!res) return false;
-                          UserInformation userInformation = UserInformation(firstName: firstNameC.text.trim().toLowerCase(), lastName: lastNameC.text.trim().toLowerCase(), email: emailC.text.trim());
+                          UserInformationModel userInformation = UserInformationModel(firstName: firstNameC.text.trim().toLowerCase(), lastName: lastNameC.text.trim().toLowerCase(), email: emailC.text.trim());
                           return await dataController.signup(userInformation: userInformation, password: passwordC.text);
                         },
                         onDone: (isSuccess) {
-                          if (isSuccess ?? false) Get.off(() => LoginScreen());
+                          if (isSuccess ?? false) Get.off(() => CustomerWrappedScreen());
                         },
                         child: const Text("Sign Up", style: buttonText1),
                       ),

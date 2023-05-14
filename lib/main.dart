@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/src/controllers/data_controllers/data_controller.dart';
 import 'package:food_shop/src/models/app_models/app_constants.dart';
-import 'package:food_shop/src/views/screens/user_auth_screen/welcome_screen.dart';
+import 'package:food_shop/src/views/screens/user_auth_screens/welcome_screen.dart';
 import 'package:get/get.dart';
 
 void main(List<String> args) {

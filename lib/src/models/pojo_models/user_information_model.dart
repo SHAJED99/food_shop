@@ -1,25 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class UserInformation {
+class UserInformationModel {
   final String firstName;
   final String lastName;
   final String email;
   bool inCustomerAccount;
-  UserInformation({
+  UserInformationModel({
     required this.firstName,
     required this.lastName,
     required this.email,
     this.inCustomerAccount = true,
   });
 
-  UserInformation copyWith({
+  UserInformationModel copyWith({
     String? firstName,
     String? lastName,
     String? email,
     bool? inCustomerAccount,
   }) {
-    return UserInformation(
+    return UserInformationModel(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
@@ -36,8 +36,8 @@ class UserInformation {
     };
   }
 
-  factory UserInformation.fromMap(Map<String, dynamic> map) {
-    return UserInformation(
+  factory UserInformationModel.fromMap(Map<String, dynamic> map) {
+    return UserInformationModel(
       firstName: map['firstName'] as String,
       lastName: map['lastName'] as String,
       email: map['email'] as String,
@@ -45,7 +45,7 @@ class UserInformation {
     );
   }
 
-  factory UserInformation.fromJson(String source) => UserInformation.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserInformationModel.fromJson(String source) => UserInformationModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
