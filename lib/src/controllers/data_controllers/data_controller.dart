@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 class DataController extends GetxController {
   final FirebaseController _firebaseController = FirebaseController();
-
+  Rx<UserInformationModel?> user = Rxn();
   RxBool isRequesting = false.obs;
 
   //! Error handler ////////////////////////////////////////////////////////////
@@ -40,6 +40,9 @@ class DataController extends GetxController {
     }
     bool force = false;
     FirebaseAuth.instance.userChanges().listen((event) {
+      if (FirebaseAuth.instance.currentUser != null) {
+        _readUserStatus();
+      }
       if (force) {
         if (kDebugMode) print("DataController.init(): FirebaseAuth.instance.userChanges().listen() for User ${event?.email}");
         if (event == null) Get.offAll(() => LoginScreen());
@@ -53,6 +56,10 @@ class DataController extends GetxController {
   Future<void> _readUserAuth() async {
     // Check if login user is valid
     await _errorHandler(function: () async => await FirebaseAuth.instance.currentUser?.reload());
+  }
+
+  Future<void> _readUserStatus() async {
+    await _errorHandler(function: () async => user.value = await _firebaseController.fetchUserData());
   }
 
   //! Auth /////////////////////////////////////////////////////////////////////

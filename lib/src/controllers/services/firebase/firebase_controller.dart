@@ -30,5 +30,12 @@ class FirebaseController {
   }
 
   //* fetch user data
-  Future<UserInformationModel> fetchUserData() {}
+  Future<UserInformationModel> fetchUserData() async {
+    try {
+      Map<String, dynamic> res = await FirebaseFirestore.instance.collection(_userString).doc(FirebaseAuth.instance.currentUser?.uid).get().then((value) => value.data() ?? {});
+      return UserInformationModel.fromMap(res);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
