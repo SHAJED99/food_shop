@@ -19,7 +19,7 @@ class MainWrappedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        // key: scaffoldKey,
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text("${(dataController.user.value?.firstName ?? "").capitalizeFirst} ${(dataController.user.value?.lastName ?? "").capitalizeFirst}"),
           actions: [

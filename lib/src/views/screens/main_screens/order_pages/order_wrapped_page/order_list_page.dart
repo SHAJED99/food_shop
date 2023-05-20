@@ -30,7 +30,7 @@ class _OrderListPageState extends State<OrderListPage> {
   loadData() async {
     isLoading.value = true;
     orderList.value = await dataController.loadOrder(orderId: widget.orderTitle);
-    print(orderList.length);
+
     isLoading.value = false;
   }
 
@@ -42,7 +42,7 @@ class _OrderListPageState extends State<OrderListPage> {
         return Obx(
           () => SingleChildScrollView(
             child: Container(
-              height: boxConstraints.maxHeight + 0.001,
+              constraints: BoxConstraints(minHeight: boxConstraints.maxHeight + 0.001),
               padding: const EdgeInsets.all(defaultPadding / 2),
               child: Column(
                 children: [
@@ -52,8 +52,9 @@ class _OrderListPageState extends State<OrderListPage> {
                       boxShadow: defaultBoxShadowDown,
                       margin: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
                       height: null,
-                      onTap: () {
+                      onTap: () async {
                         Get.to(() => UserOrderDetailsPage(orderModel: e));
+                        return;
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
