@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -14,8 +16,15 @@ class CustomTextFormField extends StatefulWidget {
   final bool autofocus;
   final Widget? label;
   final String? labelText;
+  final bool showPrefixLoadingIcon;
+  final bool showSuffixLoadingIcon;
+  final Widget? loadingIcon;
+  final Color? loadingIconColor;
+  final double? loadingIconsSize;
   final Widget? prefixIcon;
   final Widget? prefix;
+  final Widget? suffixIcon;
+  final Widget? suffix;
   final Color? fillColor;
   final FloatingLabelBehavior floatingLabelBehavior;
   final Iterable<String>? autofillHints;
@@ -33,13 +42,14 @@ class CustomTextFormField extends StatefulWidget {
   final Color? cursorColor;
   final Function(String? value)? validator;
   final void Function(String? value)? onComplete;
-  final void Function(String value)? onChanged;
+  final Future<void>? Function(String value)? onChanged;
+  final Duration onChangeDebouncer;
   final void Function()? onTap;
+  final void Function(PointerDownEvent pointerDownEvent)? onTapOutside;
   final TextCapitalization textCapitalization;
   final TextEditingController? textEditingController;
   final TextInputType keyboardType;
   final String? initialValue;
-  final TextStyle? labelStyle;
   const CustomTextFormField({
     Key? key,
     this.height = 48,
@@ -80,7 +90,15 @@ class CustomTextFormField extends StatefulWidget {
     this.prefix,
     this.fillColor,
     this.initialValue,
-    this.labelStyle,
+    this.suffixIcon,
+    this.suffix,
+    this.showPrefixLoadingIcon = false,
+    this.showSuffixLoadingIcon = false,
+    this.loadingIcon,
+    this.loadingIconColor,
+    this.loadingIconsSize = 16,
+    this.onTapOutside,
+    this.onChangeDebouncer = const Duration(milliseconds: 500),
   }) : super(key: key);
 
   @override
@@ -92,6 +110,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late String hintText;
   late BorderRadius borderRadius;
   bool error = false;
+  bool isIdle = true;
+  List<String> _searchProductList = [];
+  Timer? _debounce;
 
   @override
   void initState() {
@@ -110,6 +131,27 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   void dispose() {
     super.dispose();
     textEditingController.dispose();
+    _debounce?.cancel();
+  }
+
+  Widget? showLoadingIcon(bool value) {
+    if (value && !isIdle) {
+      return widget.loadingIcon ??
+          AspectRatio(
+            aspectRatio: 1,
+            child: Center(
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: widget.loadingIconsSize ?? double.infinity,
+                  maxWidth: widget.loadingIconsSize ?? double.infinity,
+                ),
+                child: FittedBox(child: CircularProgressIndicator(color: widget.loadingIconColor ?? Theme.of(context).primaryColor)),
+              ),
+            ),
+          );
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -136,8 +178,24 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onEditingComplete: () {
           if (widget.onComplete != null) widget.onComplete!(textEditingController.text);
         },
-        onChanged: (value) {
-          if (widget.onChanged != null) widget.onChanged!(value);
+        onTapOutside: widget.onTapOutside,
+        onChanged: (value) async {
+          if (_debounce?.isActive ?? false) _debounce?.cancel();
+          _debounce = Timer(widget.onChangeDebouncer, () async {
+            _searchProductList.add(value);
+            while (_searchProductList.isNotEmpty && value.isNotEmpty) {
+              if (isIdle) {
+                String searchingProduct = _searchProductList.last;
+                _searchProductList = [];
+                if (mounted) setState(() => isIdle = false);
+                if (widget.onChanged != null) await widget.onChanged!(searchingProduct);
+                if (mounted) setState(() => isIdle = true);
+              } else {
+                if (value.isNotEmpty) await Future.delayed(const Duration(milliseconds: 500));
+              }
+            }
+          });
+
           if (error) {
             hintText = widget.hintText;
             error = false;
@@ -161,13 +219,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           return "";
         },
         decoration: InputDecoration(
-          labelStyle: widget.labelStyle,
           label: widget.label,
           labelText: widget.labelText,
           floatingLabelBehavior: widget.floatingLabelBehavior,
           hintText: hintText,
           prefix: widget.prefix,
-          prefixIcon: widget.prefixIcon,
+          suffix: widget.suffix,
+          prefixIcon: showLoadingIcon(widget.showPrefixLoadingIcon) ?? widget.prefixIcon,
+          suffixIcon: showLoadingIcon(widget.showSuffixLoadingIcon) ?? widget.suffixIcon,
           filled: widget.fillColor == null ? false : true,
           fillColor: widget.fillColor,
           hintStyle: widget.hintStyle ?? TextStyle(color: error ? Theme.of(context).colorScheme.error : Theme.of(context).primaryColor),

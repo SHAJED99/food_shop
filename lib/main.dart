@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         PointerDeviceKind.mouse,
         PointerDeviceKind.touch,
       }),
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

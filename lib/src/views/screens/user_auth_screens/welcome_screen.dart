@@ -57,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     AnimatedSize(
                       duration: const Duration(milliseconds: defaultDuration),
                       child: !isInitialized
-                          ? const CustomCircularProgressBar()
+                          ? CustomCircularProgressBar(color: Theme.of(context).canvasColor)
                           : Column(
                               // Login
                               children: [

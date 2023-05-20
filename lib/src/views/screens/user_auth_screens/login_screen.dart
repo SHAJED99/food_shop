@@ -3,6 +3,7 @@ import 'package:food_shop/src/controllers/data_controllers/data_controller.dart'
 import 'package:food_shop/src/controllers/services/functions/email_verification.dart';
 import 'package:food_shop/src/controllers/services/functions/password_verification.dart';
 import 'package:food_shop/src/models/app_models/app_constants.dart';
+import 'package:food_shop/src/views/screens/main_screens/wrapped_screens/setting_wrapper_screen.dart';
 import 'package:food_shop/src/views/screens/user_auth_screens/reset_password_screen.dart';
 import 'package:food_shop/src/views/screens/user_auth_screens/signup_screen.dart';
 import 'package:food_shop/src/views/widgets/custom_background_image.dart';
@@ -65,6 +66,9 @@ class LoginScreen extends StatelessWidget {
                         expanded: true,
                         onTap: () async {
                           return await dataController.login(email: emailC.text.trim(), password: passwordC.text.trim());
+                        },
+                        onDone: (isSuccess) {
+                          if (isSuccess ?? false) Get.off(() => SettingWrapperScreen());
                         },
                         child: const Text("Login", style: buttonText1),
                       ),

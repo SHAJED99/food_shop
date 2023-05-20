@@ -29,6 +29,7 @@ class ErrorHandler {
     } catch (e) {
       if (kDebugMode) print("ErrorHandler: InternalError. ErrorCode: $e");
       if (showError) InternalError(message: e.toString());
+      rethrow;
     }
     return false;
   }

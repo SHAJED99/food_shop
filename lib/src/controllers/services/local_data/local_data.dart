@@ -3,18 +3,19 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalData extends GetxController {
-  // SharedPreferences? _sharedPreferences;
-  // final String _user = "user";
+  SharedPreferences? _sharedPreferences;
+  final String isSeller = "isActive";
 
-  // Future<String> initData() async {
-  //   if (kDebugMode) print("LocalData: Loading local user data.");
-  //   _sharedPreferences = await SharedPreferences.getInstance();
-  //   String token = _sharedPreferences?.getString(_user) ?? "";
-  //   if (kDebugMode) print("LocalData: token = $token");
-  //   return token;
-  // }
+  Future<bool> initData() async {
+    if (kDebugMode) print("LocalData: Loading local user data.");
+    _sharedPreferences = await SharedPreferences.getInstance();
+    bool isActive = _sharedPreferences?.getBool(isSeller) ?? false;
+    if (kDebugMode) print("LocalData: isSeller = $isActive");
+    return isActive;
+  }
 
-  // setToken(String token) {
-  //   _sharedPreferences?.setString("token", token);
-  // }
+  setIsSeller(bool isActive) {
+    if (kDebugMode) print("LocalData: isSeller = $isActive");
+    _sharedPreferences?.setBool(isSeller, isActive);
+  }
 }
