@@ -1,16 +1,16 @@
-# food_shop
+# Food Panddu
 
-A new Flutter project.
+Food panddu is a food ordering app. 
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![1. Screenshot](/screenshots/1.png)
+![2. Screenshot](/screenshots/2.png)
+![3. Screenshot](/screenshots/3.jpg)
+![4. Screenshot](/screenshots/4.jpg)
+![5. Screenshot](/screenshots/5.jpg)
+![6. Screenshot](/screenshots/6.jpg)
+![7. Screenshot](/screenshots/7.jpg)
+![8. Screenshot](/screenshots/8.jpg)
+![9. Screenshot](/screenshots/9.jpg)
